@@ -83,9 +83,9 @@
 	Gui, 1:Add, CheckBox, x30 y385 h15 w15 vvar10 gToggle,
 	Gui, 1:Add, Text, x50 y385 vvartxt10 gToggle %Color0%, Microsoft Teams
 	Gui, 1:Add, CheckBox, x30 y410 h15 w15 vvar11 gToggle,
-	Gui, 1:Add, Text, x50 y410 vvartxt11 gToggle %Color0%, FileZilla
+	Gui, 1:Add, Text, x50 y410 vvartxt11 gToggle %Color0%, Microsoft Yammer
 	Gui, 1:Add, CheckBox, x30 y435 h15 w15 vvar12 gToggle,
-	Gui, 1:Add, Text, x50 y435 vvartxt12 gToggle %Color0%, Placeholder
+	Gui, 1:Add, Text, x50 y435 vvartxt12 gToggle %Color0%, FileZilla
 	Gui, 1:Add, CheckBox, x30 Y460 h15 w15 vvar13 gToggle,
 	Gui, 1:Add, Text, x50 y460 vvartxt13 gToggle %Color0%, Placeholder
 	Gui, 1:Add, CheckBox, x30 y485 h15 w15 vvar14 gToggle,
@@ -181,7 +181,7 @@
 	Gui, 1:Submit, NoHide
 ;	_________________________________________________________________
 
-	If (var1 = 0 and var2 = 0 and var3 = 0 and var4 = 0 and var5 = 0 and var6 = 0 and var7 = 0 and var8 = 0 and var9 = 0 and var10 = 0 and var11 = 0 and var15 = 0)
+	If (var1 = 0 and var2 = 0 and var3 = 0 and var4 = 0 and var5 = 0 and var6 = 0 and var7 = 0 and var8 = 0 and var9 = 0 and var10 = 0 and var11 = 0 and var12 = 0 and var15 = 0)
  		{
 		Gui, 2:Color, 000011
 		Gui, 2:Font, S10, Arial
@@ -645,7 +645,7 @@ If var7 = 0
 	Teams:
 	
 	If var10 = 0
-		GoTo, FileZilla
+		GoTo, Yammer
 	Else
 	If var10 = 1
 	{
@@ -669,12 +669,39 @@ If var7 = 0
 		}
 ;	_________________________________________________________________
 
-	Filezilla:
+	Yammer:
 	
 	If var11 = 0
-		GoTo, Sleep
+		GoTo, Filezilla
 	Else
 	If var11 = 1
+	{
+		Process, Exist, Yammer.exe
+		If (ErrorLevel > 0)
+		{
+		Gui, 2:Color, 000011
+		Gui, 2:Font, S10, Arial
+		Gui, 2:Add, Picture, C01 CW000011 H-1 W24 x12 y05 Icon102, imageres.dll 
+		Gui, 2:Add, Text, c10 CFFFFFF x46 y09 h24, Yammer is already opened on your computer.                      					    `n`n`n
+		Gui, 2:Color, 000011
+		Gui, 2:Show  
+		Sleep 2000
+		Gui, 2:Hide 	
+		}
+	Else
+		If (ErrorLevel = 0)
+			Run "C:\Users\BE034739\AppData\Local\yammerdesktop\app-1.3.2\Yammer.exe"
+		
+		Sleep 3000
+		}
+;	_________________________________________________________________
+
+Filezilla:
+	
+	If var12 = 0
+		GoTo, Sleep
+	Else
+	If var12 = 1
 	{
 		Process, Exist, filezilla.exe
 		If (ErrorLevel > 0)
@@ -719,6 +746,8 @@ If var7 = 0
 		Process, WaitClose, %NewPID%, 5
 	if ErrorLevel ; The PID still exists.
     	MsgBox The process did not close within 5 seconds.
+		Sleep 2000
+		Process, Close, RoyalTS.exe
 		Sleep 2000
 		Run, C:\Program Files (x86)\Cisco\Cisco AnyConnect Secure Mobility Client\vpncli.exe disconnect
 		Sleep 5000
