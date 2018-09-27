@@ -87,7 +87,7 @@
 	Gui, 1:Add, CheckBox, x30 y435 h15 w15 vvar12 gToggle,
 	Gui, 1:Add, Text, x50 y435 vvartxt12 gToggle %Color0%, FileZilla
 	Gui, 1:Add, CheckBox, x30 Y460 h15 w15 vvar13 gToggle,
-	Gui, 1:Add, Text, x50 y460 vvartxt13 gToggle %Color0%, Placeholder
+	Gui, 1:Add, Text, x50 y460 vvartxt13 gToggle %Color0%, Discord
 	Gui, 1:Add, CheckBox, x30 y485 h15 w15 vvar14 gToggle,
 	Gui, 1:Add, Text, x50 y485 vvartxt14 gToggle %Color0%, Placeholder
 ;	_________________________________________________________________
@@ -181,7 +181,7 @@
 	Gui, 1:Submit, NoHide
 ;	_________________________________________________________________
 
-	If (var1 = 0 and var2 = 0 and var3 = 0 and var4 = 0 and var5 = 0 and var6 = 0 and var7 = 0 and var8 = 0 and var9 = 0 and var10 = 0 and var11 = 0 and var12 = 0 and var15 = 0)
+	If (var1 = 0 and var2 = 0 and var3 = 0 and var4 = 0 and var5 = 0 and var6 = 0 and var7 = 0 and var8 = 0 and var9 = 0 and var10 = 0 and var11 = 0 and var12 = 0 and var13 = 0 and var15 = 0)
  		{
 		Gui, 2:Color, 000011
 		Gui, 2:Font, S10, Arial
@@ -238,7 +238,7 @@
 If (var5 = 0)
 		Goto, Outlook
 	Else
-	If (var5 = 1)
+	If (var99 = 1)
 		{
 		If (ErrorLevel > 0)
 			clipboard =
@@ -561,44 +561,11 @@ If var7 = 0
 			sleep 1000
 			send ^l
 			sleep 3000
-			send ^l
-			send http://ccnwic01.northamerica.cerner.net/prod/DashBoards.aspx
-			sleep 1000
-			send {enter}
-			sleep 5000
-			send ^t
-			sleep 1000
-			send ^l
-			sleep 3000
 			send https://remedy.cerner.com/
 			sleep 3000
 			send {enter}
 			sleep 5000
-			send ^t
-			sleep 1000
-			send ^l
-			sleep 1000
-			send https://wiki.ucern.com/display/CrnCon/Clairvia
-			sleep 1000
-			send {enter}
-			sleep 5000
-			send ^t
-			sleep 1000
-			send ^l
-			sleep 1000
-			send https://connect.ucern.com/groups/cerner-clairvia-support
-			sleep 1000
-			send {enter}
-			sleep 5000
-			send ^t
-			sleep 1000
-			send ^l
-			sleep 1000
-			send https://jira2.cerner.com/browse/CVIA/?selectedTab=com.atlassian.jira.jira-projects-plugin:Summary-panel
-			sleep 1000
-			send {enter}
-			sleep 5000
-						
+									
 		Sleep 3000
 	}	
 ;	_________________________________________________________________
@@ -699,7 +666,7 @@ If var7 = 0
 Filezilla:
 	
 	If var12 = 0
-		GoTo, Sleep
+		GoTo, Discord
 	Else
 	If var12 = 1
 	{
@@ -718,6 +685,33 @@ Filezilla:
 	Else
 		If (ErrorLevel = 0)
 			Run "C:\Program Files\FileZilla FTP Client\filezilla.exe"
+		
+		Sleep 3000
+		}
+;	_________________________________________________________________
+
+Discord:
+	
+	If var13 = 0
+		GoTo, Sleep
+	Else
+	If var13 = 1
+	{
+		Process, Exist, discord.exe
+		If (ErrorLevel > 0)
+		{
+		Gui, 2:Color, 000011
+		Gui, 2:Font, S10, Arial
+		Gui, 2:Add, Picture, C01 CW000011 H-1 W24 x12 y05 Icon102, imageres.dll 
+		Gui, 2:Add, Text, c10 CFFFFFF x46 y09 h24, Discord is already opened on your computer.                      					    `n`n`n
+		Gui, 2:Color, 000011
+		Gui, 2:Show  
+		Sleep 2000
+		Gui, 2:Hide 	
+		}
+	Else
+		If (ErrorLevel = 0)
+			Run "C:\Users\BE034739\AppData\Local\Discord\app-0.0.301\Discord.exe"
 		
 		Sleep 3000
 		}
